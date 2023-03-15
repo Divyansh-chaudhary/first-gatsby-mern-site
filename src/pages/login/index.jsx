@@ -42,9 +42,9 @@ const login = () => {
           </Button>
         </Form.Item>
       </Form>
-      <Button>
-        <Link to={ROUTES.signup}>Register</Link>
-      </Button>
+      <Link to={ROUTES.signup}>
+        <Button>Register</Button>
+      </Link>
     </>
   );
 };

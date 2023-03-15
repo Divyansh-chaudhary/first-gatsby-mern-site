@@ -1,16 +1,27 @@
 import { Button, Col, Form, Input, Row } from 'antd';
 import { Link } from 'gatsby';
-import React from 'react';
-import { ROUTES } from '../../../constants';
+import React, { useEffect } from 'react';
+import { ROUTES, VALIDATE_STATUS } from '../../../constants';
 
 const Signup = () => {
   const [form] = Form.useForm();
+
+  const email = Form.useWatch('email', form);
+
+  useEffect(() => {
+    const emailStatus = form.getFieldError('email');
+    console.log('emailStatus', email, emailStatus);
+  }, [email]);
 
   return (
     <>
       <Form form={form} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} style={{ maxWidth: 600 }}>
         <Form.Item label="email">
-          <Form.Item name={'email'} rules={[{ required: true, type: 'email' }]}>
+          <Form.Item
+            hasFeedback
+            name={'email'}
+            rules={[{ required: true, type: 'email' }]}
+            validateStatus={VALIDATE_STATUS.initial}>
             <Input placeholder="OTP" />
           </Form.Item>
           {
@@ -57,9 +68,9 @@ const Signup = () => {
           </Button>
         </Form.Item>
       </Form>
-      <Button>
-        <Link to={ROUTES.login}>Login</Link>
-      </Button>
+      <Link to={ROUTES.login}>
+        <Button>Login</Button>
+      </Link>
     </>
   );
 };
